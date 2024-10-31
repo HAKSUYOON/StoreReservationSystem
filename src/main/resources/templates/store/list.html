@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>상정 예약</title>
+</head>
+<style>
+    div.menu {
+        float: left;
+    }
+    div.special-menu {
+        float: right;
+    }
+    .table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+    .table th, .table td {
+        border: solid 1px #000000;
+    }
+    .table td {
+        text-align: center;
+    }
+    p.nothing {
+        text-align: center;
+        padding: 100px;
+    }
+    .pager {
+        margin-top: 20px;
+        text-align: center;
+    }
+    .pager a.on {
+        font-weight: bold;
+        color: red;
+    }
+    .list .total-count {
+        position: absolute;
+        top: 0;
+        right: 0;
+    }
+</style>
+<body>
+
+    <h1> 상점 예약 </h1>
+    <div th:replace="/fragments/layout.html :: fragment-body-menu"></div>
+
+    <div clsss="list">
+        <div>
+            <p class="total-count">전체<span th:text="${totalCount}"></span>개</p>
+        </div>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>NO</th>
+                <th>상점명</th>
+                <th>상점위치</th>
+<!--                <th>나와의 거리</th>-->
+<!--                <th>별점</th>-->
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="x : ${list}">
+                <td th:text="${x.seq}">NO</td>
+                <td>
+                    <p>
+                        <a th:href="'detail?id=' + ${x.id}" th:text="${x.storeName}"></a>
+                    </p>
+                </td>
+                <td th:text="${x.storeAddress} + ' '+ ${x.addressDetail}">상점위치</td>
+            </tr>
+            <tr th:if="${#lists.size(list) < 1}">
+                <td colspan="3">
+                    <p class="nothing">내용이 없습니다.</p>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <div class="pager" th:utext="${pager}"></div>
+    </div>
+
+</body>
+</html>

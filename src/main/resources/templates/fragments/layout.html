@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8">
+        <title>srs</title>
+    </head>
+    <body>
+        <div th:fragment="fragment-body-menu">
+            <div class="menu">
+                <a href="/member/register">회원 가입</a>
+                |
+                <a href="/store/list">상점 예약</a>
+                |
+                <a href="/kiosk">키오스크</a>
+                |
+                <a href="/review">리뷰 작성</a>
+                |
+                <a href="/member/login">로그인</a>
+                |
+                <a href="/member/logout">로그아웃</a>
+            </div>
+            <div class="special-menu">
+                <a class="partner" href="/partner/main">파트너 메뉴 바로가기</a>
+                |
+                <a class="admin" href="/admin/main.do">관리자 메뉴 바로가기</a>
+            </div>
+            <br/>
+            <hr/>
+        </div>
+
+        <div th:fragment="fragment-partner-body-menu">
+            <div class="menu">
+                <a href="/partner/store/register">상점 등록</a>
+                |
+                <a href="/partner/store/reservation/list">상점 예약 관리</a>
+                |
+                <a href="/partner/review/list">리뷰 보기</a>
+                |
+                <a href="/member/logout">로그아웃</a>
+            </div>
+            <div class="home">
+                <a href="/">홈으로 가기</a>
+            </div>
+            <br/>
+            <hr/>
+        </div>
+
+        <div th:fragment="fragment-admin-body-menu">
+            <div class="menu">
+                <a href="/admin/main.do"> 관리자 메인 </a>
+                |
+                <a href="/admin/review/list.do"> 리뷰 관리 </a>
+                |
+                <a href="/member/logout">로그아웃</a>
+            </div>
+            <div class="home">
+                <a href="/">홈으로 가기</a>
+            </div>
+            <br/>
+            <hr/>
+        </div>
+    </body>
+</html>
