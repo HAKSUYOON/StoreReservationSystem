@@ -20,7 +20,7 @@ public class StoreController extends BaseController {
     private final StoreService storeService;
 
     @GetMapping("/store/list")
-    public String store(Model model, StoreParam parameter, Principal principal) {
+    public String store(Model model, StoreParam parameter) {
 
         parameter.init();
 
