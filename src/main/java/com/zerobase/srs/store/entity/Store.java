@@ -27,5 +27,6 @@ public class Store {
     @Lob
     String storeDetail;
 
-    String phone;
+    // 등록자 id
+    String userId;
 }

@@ -70,9 +70,11 @@
                 </td>
             </tr>
             <tr>
-                <th>등록자 전화번호</th>
+                <th>등록자 아이디</th>
                 <td>
-                    <input name="phone" type="text" placeholder="전화번호 입력" required/>
+                    <div>
+                        <p th:text="${userId}">등록자 아이디</p>
+                    </div>
                 </td>
             </tr>
             </tbody>

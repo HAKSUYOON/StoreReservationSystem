@@ -25,7 +25,7 @@ public class StoreDto {
 
     String storeDetail;
 
-    String phone;
+    String userId;
 
     long totalCount;
     long seq;
@@ -39,7 +39,7 @@ public class StoreDto {
                                     .storeAddress(store.getStoreAddress())
                                     .addressDetail(store.getAddressDetail())
                                     .storeDetail(store.getStoreDetail())
-                                    .phone(store.getPhone())
+                                    .userId(store.getUserId())
                                     .build();
 
         return storeDto;

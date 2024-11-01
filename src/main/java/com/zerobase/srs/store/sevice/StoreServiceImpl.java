@@ -29,13 +29,13 @@ public class StoreServiceImpl implements StoreService {
         }
 
         Store store = Store.builder()
-                .storeName(parameter.getStoreName())
-                .zipcode(parameter.getZipcode())
-                .storeAddress(parameter.getStoreAddress())
-                .addressDetail(parameter.getAddressDetail())
-                .storeDetail(parameter.getStoreDetail())
-                .phone(parameter.getPhone())
-                .build();
+                           .storeName(parameter.getStoreName())
+                           .zipcode(parameter.getZipcode())
+                           .storeAddress(parameter.getStoreAddress())
+                           .addressDetail(parameter.getAddressDetail())
+                           .storeDetail(parameter.getStoreDetail())
+                           .userId(parameter.getUserId())
+                           .build();
         storeRepository.save(store);
 
         return true;

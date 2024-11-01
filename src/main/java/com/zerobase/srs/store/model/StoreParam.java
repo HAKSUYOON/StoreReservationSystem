@@ -8,4 +8,5 @@ public class StoreParam extends CommonParam {
 
     long id;
     String storeName;
+    String userId;
 }

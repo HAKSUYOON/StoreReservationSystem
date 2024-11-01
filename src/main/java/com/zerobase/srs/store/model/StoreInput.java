@@ -6,16 +6,16 @@ import lombok.ToString;
 @ToString
 @Data
 public class StoreInput {
-    private int id;
+    long id;
 
-    private String storeName;
+    String storeName;
 
-    private String zipcode;
-    private String storeAddress;
-    private String addressDetail;
+    String zipcode;
+    String storeAddress;
+    String addressDetail;
 
-    private String storeDetail;
+    String storeDetail;
 
-    private String phone;
+    String userId;
 
 }

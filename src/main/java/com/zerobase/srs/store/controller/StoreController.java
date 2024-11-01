@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import java.security.Principal;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -19,7 +20,7 @@ public class StoreController extends BaseController {
     private final StoreService storeService;
 
     @GetMapping("/store/list")
-    public String store(Model model, StoreParam parameter) {
+    public String store(Model model, StoreParam parameter, Principal principal) {
 
         parameter.init();
 
