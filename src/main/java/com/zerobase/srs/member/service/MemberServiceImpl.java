@@ -43,6 +43,18 @@ public class MemberServiceImpl implements MemberService {
     }
 
     @Override
+    public String getPhone(String partnerId) {
+
+        Optional<Member> optionalMember = memberRepository.findById(partnerId);
+        if (!optionalMember.isPresent()) {
+            return null;
+        }
+        Member member = optionalMember.get();
+
+        return member.getPhone();
+    }
+
+    @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
         Optional<Member> optionalMember = memberRepository.findById(username);

@@ -1,6 +1,8 @@
 package com.zerobase.srs.reservation.dto;
 
+import com.zerobase.srs.member.service.MemberService;
 import com.zerobase.srs.reservation.entity.Reservation;
+import com.zerobase.srs.store.sevice.StoreService;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -19,7 +21,8 @@ public class ReservationDto {
     private Long id;
 
     private String customerId;
-    private String storeId;
+    private Long storeId;
+    private String storeName;
 
     private LocalDateTime reservationDt;
     private String status;

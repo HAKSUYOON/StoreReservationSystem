@@ -44,7 +44,7 @@
     <h1> 상점 예약 </h1>
     <div th:replace="/fragments/layout.html :: fragment-body-menu"></div>
 
-    <div clsss="list">
+    <div class="list">
         <div>
             <p class="total-count">전체<span th:text="${totalCount}"></span>개</p>
         </div>
@@ -63,7 +63,7 @@
                 <td th:text="${x.seq}">NO</td>
                 <td>
                     <p>
-                        <a th:href="'detail?id=' + ${x.id}" th:text="${x.storeName}"></a>
+                        <a th:href="'/store/' + ${x.id}" th:text="${x.storeName}"></a>
                     </p>
                 </td>
                 <td th:text="${x.storeAddress} + ' '+ ${x.addressDetail}">상점위치</td>

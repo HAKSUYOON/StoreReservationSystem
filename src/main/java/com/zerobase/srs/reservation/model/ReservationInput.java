@@ -12,9 +12,9 @@ public class ReservationInput {
     private long id;
 
     private String customerId;
-    private String storeId;
+    private Long storeId;
 
-    private LocalDateTime reservationDt;
+    private String reservationDtText;
     private String status;
     private String usingYn;
 }

@@ -1,6 +1,7 @@
 package com.zerobase.srs.store.controller;
 
 import com.zerobase.srs.base.controller.BaseController;
+import com.zerobase.srs.member.service.MemberService;
 import com.zerobase.srs.store.dto.StoreDto;
 import com.zerobase.srs.store.model.StoreParam;
 import com.zerobase.srs.store.sevice.StoreService;
@@ -10,7 +11,6 @@ import org.springframework.ui.Model;
 import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 
-import java.security.Principal;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -18,6 +18,7 @@ import java.util.List;
 public class StoreController extends BaseController {
 
     private final StoreService storeService;
+    private final MemberService memberService;
 
     @GetMapping("/store/list")
     public String store(Model model, StoreParam parameter) {
@@ -41,7 +42,13 @@ public class StoreController extends BaseController {
     }
 
     @GetMapping("/store/{id}")
-    public String detail() {
+    public String detail(Model model, StoreParam parameter) {
+
+        StoreDto detail = storeService.detail(parameter.getId());
+        String partnerPhone = memberService.getPhone(detail.getUserId());
+        model.addAttribute("detail", detail);
+        model.addAttribute("partnerPhone", partnerPhone);
+
         return "store/detail";
     }
 

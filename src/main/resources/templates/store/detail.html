@@ -11,11 +11,52 @@
     div.special-menu {
         float: right;
     }
+    table {
+        border-collapse: collapse;
+        width: 50%;
+        margin-top: 20px;
+    }
+    table th, table td {
+        border: solid 1px #000;
+        font-size: 15px;
+        text-align: center;
+        height: 50px;
+    }
+    .buttons {
+        margin-top: 20px;
+    }
 </style>
 <body>
-
     <h1> 상점 상세정보 </h1>
     <div th:replace="/fragments/layout.html :: fragment-body-menu"></div>
 
+    <div>
+        <table>
+            <tr>
+                <th>상점명</th>
+                <td th:text="${detail.storeName}">상점명</td>
+            </tr>
+            <tr>
+                <th>상점위치</th>
+                <td th:text="${detail.storeAddress} + ' ' + ${detail.addressDetail}">상점위치</td>
+            </tr>
+            <tr>
+                <th>상점 전화번호</th>
+                <td th:text="${partnerPhone}">상점 전화번호</td>
+            </tr>
+            <tr>
+                <th>상점 상세설명</th>
+                <td th:utext="${detail.storeDetail}">상점 상세설명</td>
+            </tr>
+        </table>
+        <form method="post">
+            <div class="buttons">
+                <input type="text" placeholder="2024-11-02 HH(정시입력)" required/>
+                <br/>
+                <br/>
+                <button type="button">상점 예약하기</button>
+            </div>
+        </form>
+    </div>
 </body>
 </html>

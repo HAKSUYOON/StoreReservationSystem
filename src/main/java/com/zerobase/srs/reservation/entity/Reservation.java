@@ -14,15 +14,15 @@ import java.time.LocalDateTime;
 @Builder
 @Data
 @Entity
-public class Reservation {
+public class Reservation implements ReservationStatus{
 
     @Id
     private Long Id;
 
     private String customerId;
-    private String storeId;
+    private Long storeId;
 
-    private LocalDateTime ReservationDt;
+    private LocalDateTime reservationDt;
     private String status;
     private boolean usingYn;
 }

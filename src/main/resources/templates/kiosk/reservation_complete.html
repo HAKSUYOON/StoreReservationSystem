@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>예약 완료</title>
+</head>
+<style>
+  div.menu {
+    float: left;
+  }
+  div.special-menu {
+    float: right;
+  }
+</style>
+<body>
+
+  <div th:if="${result}">
+    <h1>예약 완료</h1>
+    <div th:replace="fragments/layout.html :: fragment-body-menu"></div>
+    <p>상점 예약이 완료되었습니다.</p>
+  </div>
+
+  <div th:if="${result eq false}">
+    <h1>예약 결과</h1>
+    <div th:replace="fragments/layout.html :: fragment-body-menu"></div>
+    <p>상점 예약에 실패하였습니다.</p>
+  </div>
+
+</body>
+</html>

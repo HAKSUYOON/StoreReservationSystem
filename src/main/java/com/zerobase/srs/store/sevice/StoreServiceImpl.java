@@ -57,4 +57,25 @@ public class StoreServiceImpl implements StoreService {
 
         return list;
     }
+
+    @Override
+    public StoreDto detail(long id) {
+
+        Optional<Store> optionalStore = storeRepository.findById(id);
+        if (!optionalStore.isPresent()) {
+            return null;
+        }
+        return StoreDto.of(optionalStore.get());
+    }
+
+    @Override
+    public String getStoreName(long storeId) {
+
+        Optional<Store> optionalStore = storeRepository.findById(storeId);
+        if (!optionalStore.isPresent()) {
+            return null;
+        }
+        Store store = optionalStore.get();
+        return store.getStoreName();
+    }
 }
