@@ -16,4 +16,9 @@ public interface ReservationService {
      * 상점 예약
      */
     boolean add(ReservationInput parameter);
+
+    /**
+     * 파트너 예약목록
+     */
+    List<ReservationDto> partnerList(ReservationParam parameter);
 }

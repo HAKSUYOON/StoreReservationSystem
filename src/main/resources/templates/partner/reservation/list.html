@@ -2,13 +2,13 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title> 키오스크 </title>
+    <title>상정 예약 관리</title>
 </head>
 <style>
     div.menu {
         float: left;
     }
-    div.special-menu {
+    div.home {
         float: right;
     }
     .table {
@@ -25,35 +25,22 @@
         text-align: center;
         padding: 100px;
     }
-    .pager {
-        margin-top: 20px;
-        text-align: center;
-    }
-    .pager a.on {
-        font-weight: bold;
-        color: red;
-    }
-    .list .total-count {
-        position: absolute;
-        top: 0;
-        right: 0;
-    }
 </style>
 <body>
 
-    <h1> 키오스크 </h1>
-    <div th:replace="/fragments/layout.html :: fragment-body-menu"></div>
+    <h1> 상점 예약 관리 </h1>
+    <div th:replace="/fragments/layout.html :: fragment-partner-body-menu"></div>
 
-    <div class="list">
+    <div>
         <table class="table">
             <thead>
                 <tr>
                     <th>NO</th>
                     <th>예약자명</th>
                     <th>상점명</th>
-                    <th>예약시간</th>
-                    <th>승인여부</th>
-                    <th>사용여부</th>
+                    <th>예약 시간</th>
+                    <th>예약 승인여부</th>
+                    <th>비고</th>
                 </tr>
             </thead>
             <tbody>
@@ -61,22 +48,22 @@
                     <td th:text="${x.id}">NO</td>
                     <td th:text="${x.customerId}">예약자명</td>
                     <td th:text="${x.storeName}">상점명</td>
-                    <td th:text="${x.reservationDt}">예약시간</td>
-                    <td>
-                        <p th:if="${x.status eq 'STATUS_REQ'}">예약 승인 대기중</p>
-                        <p th:if="${x.status eq 'STATUS_CANCEL'}">예약 승인 거절</p>
-                        <p th:if="${x.status eq 'STATUS_APPROVE'}">예약 승인 완료</p>
+                    <td th:text="${x.reservationDt}">예약 시간</td>
+                    <td th:text="${x.status}">예약 승인여부</td>
+                    <td th:if="${x.status eq 'STATUS_REQ'}">
+                        <form method="post">
+                            <button type="submit">승인</button>
+                            <button type="submit">취소</button>
+                        </form>
                     </td>
-                    <td th:text="${x.usingYn}">사용여부</td>
                 </tr>
                 <tr th:if="${#lists.size(list) < 1}">
                     <td colspan="6">
-                        <p class="nothing">예약한 내용이 없습니다.</p>
+                        <p class="nothing">내용이 없습니다.</p>
                     </td>
                 </tr>
             </tbody>
         </table>
     </div>
-
 </body>
 </html>

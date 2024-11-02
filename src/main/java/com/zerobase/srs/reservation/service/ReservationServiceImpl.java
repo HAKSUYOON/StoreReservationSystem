@@ -5,12 +5,15 @@ import com.zerobase.srs.reservation.entity.Reservation;
 import com.zerobase.srs.reservation.model.ReservationInput;
 import com.zerobase.srs.reservation.model.ReservationParam;
 import com.zerobase.srs.reservation.repository.ReservationRepository;
+import com.zerobase.srs.store.entity.Store;
+import com.zerobase.srs.store.repository.StoreRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -19,6 +22,7 @@ import java.util.Optional;
 public class ReservationServiceImpl implements ReservationService {
 
     private final ReservationRepository reservationRepository;
+    private final StoreRepository storeRepository;
 
     private LocalDateTime getLocalDate(String value) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH");
@@ -51,13 +55,37 @@ public class ReservationServiceImpl implements ReservationService {
         LocalDateTime reservationDt = getLocalDate(parameter.getReservationDtText());
 
         Reservation reservation = Reservation.builder()
-                .customerId(parameter.getCustomerId())
-                .storeId(parameter.getStoreId())
-                .reservationDt(reservationDt)
-                .status(Reservation.RESERVATION_STATUS_REQ)
-                .usingYn(false)
-                .build();
+                                             .customerId(parameter.getCustomerId())
+                                             .storeId(parameter.getStoreId())
+                                             .reservationDt(reservationDt)
+                                             .status(Reservation.RESERVATION_STATUS_REQ)
+                                             .usingYn(false)
+                                             .build();
+        reservationRepository.save(reservation);
 
         return true;
+    }
+
+    @Override
+    public List<ReservationDto> partnerList(ReservationParam parameter) {
+
+        List<Reservation> reservationList = new ArrayList<>();
+
+        Optional<List<Store>> optionalStores = storeRepository.findByUserId(parameter.getUserId());
+        if (optionalStores.isEmpty()) {
+            return null;
+        }
+
+        for (Store x : optionalStores.get()) {
+            Long storeId = x.getId();
+            Optional<List<Reservation>> optionalReservations = reservationRepository.findByStoreId(storeId);
+            if (optionalReservations.isEmpty()) {
+                return null;
+            }
+            for (Reservation y : optionalReservations.get()) {
+                reservationList.add(y);
+            }
+        }
+        return ReservationDto.of(reservationList);
     }
 }

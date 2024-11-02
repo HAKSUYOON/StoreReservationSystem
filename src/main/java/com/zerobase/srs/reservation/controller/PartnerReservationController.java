@@ -13,40 +13,32 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import javax.servlet.http.HttpServletRequest;
 import java.security.Principal;
-import java.util.ArrayList;
 import java.util.List;
 
 @RequiredArgsConstructor
 @Controller
-public class ReservationController {
+public class PartnerReservationController {
 
     private final ReservationService reservationService;
     private final StoreService storeService;
 
-    @GetMapping("/kiosk")
-    public String reservation(Model model, ReservationParam parameter, Principal principal) {
+    @GetMapping("/partner/store/reservation/list")
+    public String partnerReservation(Model model, ReservationParam parameter, Principal principal) {
 
-        String userId = principal.getName();
-        parameter.setUserId(userId);
+        parameter.setUserId(principal.getName());
 
-        List<ReservationDto> reservationList = reservationService.list(parameter);
-        for (ReservationDto x : reservationList) {
+        List<ReservationDto> list = reservationService.partnerList(parameter);
+        for (ReservationDto x : list) {
             x.setStoreName(storeService.getStoreName(x.getStoreId()));
         }
-        model.addAttribute("list", reservationList);
+        model.addAttribute("list", list);
 
-        return "kiosk/list";
+        return "partner/reservation/list";
     }
 
-    @PostMapping("/reservation/add")
-    public String reservationSubmit(Model model, HttpServletRequest request, ReservationInput parameter, Principal principal) {
+    @PostMapping("/partner/store/reservation/list")
+    public String setApproveYn(Model model, HttpServletRequest request, ReservationInput parameter, Principal principal) {
 
-        parameter.setCustomerId(principal.getName());
-
-        boolean result = reservationService.add(parameter);
-        model.addAttribute("result", result);
-
-        return "kiosk/reservation_complete";
-
+        return "redirect:/partner/store/reservation/list";
     }
 }

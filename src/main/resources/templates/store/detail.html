@@ -49,12 +49,13 @@
                 <td th:utext="${detail.storeDetail}">상점 상세설명</td>
             </tr>
         </table>
-        <form method="post">
+        <form id="submitForm" method="post" action="/reservation/add">
             <div class="buttons">
-                <input type="text" placeholder="2024-11-02 HH(정시입력)" required/>
+                <input type="hidden" name="storeId" th:value="${detail.id}">
+                <input type="text" name="reservationDtText" placeholder="2024-11-02 HH(정시입력)" required/>
                 <br/>
                 <br/>
-                <button type="button">상점 예약하기</button>
+                <button type="submit">상점 예약하기</button>
             </div>
         </form>
     </div>

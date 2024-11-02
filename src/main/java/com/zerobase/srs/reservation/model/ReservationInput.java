@@ -3,8 +3,6 @@ package com.zerobase.srs.reservation.model;
 import lombok.Data;
 import lombok.ToString;
 
-import java.time.LocalDateTime;
-
 @ToString
 @Data
 public class ReservationInput {
