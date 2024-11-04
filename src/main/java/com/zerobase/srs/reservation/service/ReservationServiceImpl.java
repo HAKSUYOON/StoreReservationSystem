@@ -87,4 +87,49 @@ public class ReservationServiceImpl implements ReservationService {
         }
         return ReservationDto.of(reservationList);
     }
+
+    @Override
+    public boolean approved(long id) {
+
+        Optional<Reservation> optionalReservation = reservationRepository.findById(id);
+        if (optionalReservation.isEmpty()) {
+            return false;
+        }
+
+        Reservation reservation = optionalReservation.get();
+        reservation.setStatus(Reservation.RESERVATION_STATUS_APPROVED);
+        reservationRepository.save(reservation);
+
+        return true;
+    }
+
+    @Override
+    public boolean canceled(long id) {
+
+        Optional<Reservation> optionalReservation = reservationRepository.findById(id);
+        if (optionalReservation.isEmpty()) {
+            return false;
+        }
+
+        Reservation reservation = optionalReservation.get();
+        reservation.setStatus(Reservation.RESERVATION_STATUS_CANCEL);
+        reservationRepository.save(reservation);
+
+        return true;
+    }
+
+    @Override
+    public boolean use(long id) {
+
+        Optional<Reservation> optionalReservation = reservationRepository.findById(id);
+        if (optionalReservation.isEmpty()) {
+            return false;
+        }
+
+        Reservation reservation = optionalReservation.get();
+        reservation.setUsingYn(true);
+        reservationRepository.save(reservation);
+
+        return true;
+    }
 }

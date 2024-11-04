@@ -50,11 +50,19 @@
                     <td th:text="${x.storeName}">상점명</td>
                     <td th:text="${x.reservationDt}">예약 시간</td>
                     <td th:text="${x.status}">예약 승인여부</td>
-                    <td th:if="${x.status eq 'STATUS_REQ'}">
-                        <form method="post">
-                            <button type="submit">승인</button>
-                            <button type="submit">취소</button>
-                        </form>
+                    <td th:switch="${x.status}" >
+                        <div th:case="'STATUS_REQ'">
+                            <form name="approvedForm" method="post" action="/partner/store/reservation/approve">
+                                <input type="hidden" name="id" th:value="${x.id}">
+                                <button class="approved" name="approved" type="submit">승인</button>
+                            </form>
+                            <form name="canceledForm" method="post" action="/partner/store/reservation/cancel">
+                                <input type="hidden" name="id" th:value="${x.id}">
+                                <button class="canceled" name="canceled" type="submit">취소</button>
+                            </form>
+                        </div>
+                        <div th:case="STATUS_APPROVED"></div>
+                        <div th:case="STATUS_CANCEL"></div>
                     </td>
                 </tr>
                 <tr th:if="${#lists.size(list) < 1}">

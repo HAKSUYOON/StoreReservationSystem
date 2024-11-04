@@ -48,4 +48,13 @@ public class ReservationController {
         return "kiosk/reservation_complete";
 
     }
+
+    @PostMapping("/kiosk/use")
+    public String setUsingY(Model model, HttpServletRequest request, ReservationInput parameter) {
+
+        boolean result = reservationService.use(parameter.getId());
+        model.addAttribute("result", result);
+
+        return "redirect:/kiosk";
+    }
 }

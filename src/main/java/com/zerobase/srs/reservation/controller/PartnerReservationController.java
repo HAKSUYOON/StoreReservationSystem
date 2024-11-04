@@ -36,9 +36,21 @@ public class PartnerReservationController {
         return "partner/reservation/list";
     }
 
-    @PostMapping("/partner/store/reservation/list")
-    public String setApproveYn(Model model, HttpServletRequest request, ReservationInput parameter, Principal principal) {
+    @PostMapping("/partner/store/reservation/approve")
+    public String setApproveY(Model model, HttpServletRequest request, ReservationInput parameter) {
+
+        boolean result = reservationService.approved(parameter.getId());
+        model.addAttribute("result", result);
 
         return "redirect:/partner/store/reservation/list";
     }
+
+    @PostMapping("/partner/store/reservation/cancel")
+    public String setApproveN(Model model, HttpServletRequest request, ReservationInput parameter) {
+
+        boolean result = reservationService.canceled(parameter.getId());
+
+        return "redirect:/partner/store/reservation/list";
+    }
+
 }
