@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title> 파트너 리뷰 목록 </title>
+</head>
+<style>
+    div.menu {
+        float: left;
+    }
+    div.home {
+        float: right;
+    }
+    .table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+    .table th, .table td {
+        border: solid 1px #000000;
+    }
+    .table td {
+        text-align: center;
+    }
+    p.nothing {
+        text-align: center;
+        padding: 100px;
+    }
+</style>
+<body>
+
+    <h1> 파트너 리뷰 목록 </h1>
+    <div th:replace="/fragments/layout.html :: fragment-partner-body-menu"></div>
+
+    <div class="list">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>NO</th>
+                    <th>등록자 아이디</th>
+                    <th>상점명</th>
+                    <th>이용일</th>
+                    <th>내용</th>
+                    <th>별점</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="x : ${reviewList}">
+                    <td th:text="${x.id}">NO</td>
+                    <td th:text="${x.userId}">예약자명</td>
+                    <td th:text="${x.storeName}">상점명</td>
+                    <td th:text="${x.reservationDt}">이용일</td>
+                    <td th:utext="${x.contents}">내용</td>
+                    <td th:text="${x.score}">별점</td>
+                </tr>
+                <tr th:if="${#lists.size(reviewList) < 1}">
+                    <td colspan="6">
+                        <p class="nothing">작성된 리뷰가 없습니다.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

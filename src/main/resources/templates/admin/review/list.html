@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title> 관리자 리뷰 목록 </title>
+</head>
+<style>
+    div.menu {
+        float: left;
+    }
+    div.home {
+        float: right;
+    }
+    .table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+    .table th, .table td {
+        border: solid 1px #000000;
+    }
+    .table td {
+        text-align: center;
+    }
+    p.nothing {
+        text-align: center;
+        padding: 100px;
+    }
+</style>
+<script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+<script>
+    $(document).ready(function () {
+
+        $('#deleteForm').on('submit', function () {
+
+            if (!confirm('리뷰를 삭제하시겠습니까?')) {
+                return false;
+            }
+        });
+    });
+</script>
+<body>
+
+    <h1> 관리자 리뷰 목록 </h1>
+    <div th:replace="/fragments/layout.html :: fragment-admin-body-menu"></div>
+
+    <div class="list">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>NO</th>
+                    <th>등록자 아이디</th>
+                    <th>상점명</th>
+                    <th>이용일</th>
+                    <th>내용</th>
+                    <th>별점</th>
+                    <th>비고</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="x : ${list}">
+                    <td th:text="${x.id}">NO</td>
+                    <td th:text="${x.userId}">예약자명</td>
+                    <td th:text="${x.storeName}">상점명</td>
+                    <td th:text="${x.reservationDt}">이용일</td>
+                    <td th:utext="${x.contents}">내용</td>
+                    <td th:text="${x.score}">별점</td>
+                    <td>
+                        <form id="deleteForm" name="deleteForm" method="post" action="/admin/review/delete.do">
+                            <input type="hidden" name="id" th:value="${x.id}"/>
+                            <button type="submit"> 삭제 </button>
+                        </form>
+                    </td>
+                </tr>
+                <tr th:if="${#lists.size(list) < 1}">
+                    <td colspan="7">
+                        <p class="nothing">예약한 내용이 없습니다.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+</body>
+</html>

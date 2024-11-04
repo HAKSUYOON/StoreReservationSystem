@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>리뷰 수정 완료</title>
+</head>
+<style>
+    div.menu {
+        float: left;
+    }
+    div.special-menu {
+        float: right;
+    }
+</style>
+<body>
+
+<div th:if="${result}">
+    <h1>리뷰 수정 완료</h1>
+    <div th:replace="fragments/layout.html :: fragment-body-menu"></div>
+    <p>리뷰 수정이 완료되었습니다.</p>
+</div>
+
+<div th:if="${result eq false}">
+    <h1>리뷰 수정 결과</h1>
+    <div th:replace="fragments/layout.html :: fragment-body-menu"></div>
+    <p>리뷰 수정에 실패하였습니다.</p>
+</div>
+</body>
+</html>

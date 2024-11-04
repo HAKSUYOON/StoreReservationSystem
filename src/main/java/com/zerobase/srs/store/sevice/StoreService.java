@@ -1,12 +1,10 @@
 package com.zerobase.srs.store.sevice;
 
 import com.zerobase.srs.store.dto.StoreDto;
-import com.zerobase.srs.store.entity.Store;
 import com.zerobase.srs.store.model.StoreInput;
 import com.zerobase.srs.store.model.StoreParam;
 
 import java.util.List;
-import java.util.Optional;
 
 public interface StoreService {
 
@@ -29,4 +27,9 @@ public interface StoreService {
      * 상점명 가져오기
      */
     String getStoreName(long storeId);
+
+    /**
+     * 파트너 등록상점 id 가져오기
+     */
+    List<Long> getMyStoreIds(String userId);
 }

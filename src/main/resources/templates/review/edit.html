@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>리뷰 등록</title>
+
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <script>
+        $(function () {
+
+            $('#submitForm').on('submit', function () {
+
+                var $score = $('#submitForm input[type=number]').val();
+
+                if (!confirm('리뷰를 수정하시겠습니까?')) {
+                    return false;
+                }
+                if ($score < 0 || $score > 5) {
+                    alert('입력하신 별점이 범위를 벗어났습니다.')
+                    return false;
+                }
+                oEditors.getById["contents"].exec("UPDATE_CONTENTS_FIELD", []);
+            });
+
+        });
+    </script>
+
+</head>
+<style>
+    div.menu {
+        float: left;
+    }
+    div.special-menu {
+        float: right;
+    }
+    table {
+        border-collapse: collapse;
+    }
+    table th, table td {
+        border: solid 1px #000;
+    }
+    button {
+        margin-top: 10px;
+    }
+</style>
+<body>
+
+<h1>리뷰 등록</h1>
+<div th:replace="fragments/layout.html :: fragment-body-menu"></div>
+
+<div>
+    <form id="submitForm" method="post">
+        <table>
+            <tbody>
+            <tr>
+                <th>제목</th>
+                <td>
+                    <input name="title" type="text" placeholder="제목 입력" required/>
+                </td>
+            </tr>
+            <tr>
+                <th>등록자 아이디</th>
+                <td>
+                    <div>
+                        <p th:text="${userId}">등록자 아이디</p>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <th>상점명</th>
+                <td>
+                    <div>
+                        <p th:text="${storeName}">상점명</p>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <th>이용일</th>
+                <td>
+                    <div>
+                        <p th:text="${reservationDt}">이용일</p>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <th>내용</th>
+                <td>
+                    <textarea id="contents" name="contents" placeholder="내용 입력"></textarea>
+                </td>
+            </tr>
+            <tr>
+                <th>별점</th>
+                <td>
+                    <input name="score" type="number" placeholder="0~5" required>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+
+        <div>
+            <input type="hidden" name="storeId" th:value="${storeId}"/>
+            <button type="submit">리뷰 수정하기</button>
+        </div>
+    </form>
+</div>
+
+
+<!-- 네이버 스마트 에디터 -->
+<script type="text/javascript" src="/res/se2/js/service/HuskyEZCreator.js" charset="utf-8"></script>
+<script type="text/javascript">
+    var oEditors = [];
+    nhn.husky.EZCreator.createInIFrame({
+        oAppRef: oEditors,
+        elPlaceHolder: "contents",
+        sSkinURI: "/res/se2/SmartEditor2Skin.html",
+        fCreator: "createSEditor2"
+    });
+</script>
+
+</body>
+</html>

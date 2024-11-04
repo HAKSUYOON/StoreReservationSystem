@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>내 리뷰 목록</title>
+</head>
+<style>
+    div.menu {
+        float: left;
+    }
+    div.special-menu {
+        float: right;
+    }
+    .table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+    .table th, .table td {
+        border: solid 1px #000000;
+    }
+    .table td {
+        text-align: center;
+    }
+    p.nothing {
+        text-align: center;
+        padding: 100px;
+    }
+</style>
+<body>
+
+    <h1> 내 리뷰 목록 </h1>
+    <div th:replace="/fragments/layout.html :: fragment-body-menu"></div>
+
+    <div class="list">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>NO</th>
+                    <th>상점명</th>
+                    <th>이용일</th>
+                    <th>제목</th>
+                    <th>내용</th>
+                    <th>별점</th>
+                    <th>비고</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="x : ${list}">
+                    <td th:text="${x.seq}">NO</td>
+                    <td th:text="${x.storeName}">상점명</td>
+                    <td th:text="${x.reservationDt}">이용일</td>
+                    <td th:text="${x.title}">제목</td>
+                    <td th:utext="${x.contents}">내용</td>
+                    <td th:text="${x.score}">별점</td>
+                    <td>
+                        <div>
+                            <form name="getForm" method="get">
+                                <input type="hidden" name="id" th:value="${x.id}">
+                                <input type="hidden" name="storeName" th:value="${x.storeName}">
+                                <input type="hidden" name="reservationDt" th:value="${x.reservationDt}">
+                                <button type="submit" th:formaction="@{/review/edit}">수정하기</button>
+                            </form>
+                        </div>
+                        <div>
+                            <form name="submitForm" method="post">
+                                <input type="hidden" name="id" th:value="${x.id}">
+                                <button type="submit" th:formaction="@{/review/delete}">삭제하기</button>
+                            </form>
+                        </div>
+                    </td>
+                </tr>
+                <tr th:if="${#lists.size(list) < 1}">
+                    <td colspan="7">
+                        <p class="nothing">내용이 없습니다.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

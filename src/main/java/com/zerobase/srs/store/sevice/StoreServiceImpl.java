@@ -10,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -62,7 +63,7 @@ public class StoreServiceImpl implements StoreService {
     public StoreDto detail(long id) {
 
         Optional<Store> optionalStore = storeRepository.findById(id);
-        if (!optionalStore.isPresent()) {
+        if (optionalStore.isEmpty()) {
             return null;
         }
         return StoreDto.of(optionalStore.get());
@@ -72,10 +73,23 @@ public class StoreServiceImpl implements StoreService {
     public String getStoreName(long storeId) {
 
         Optional<Store> optionalStore = storeRepository.findById(storeId);
-        if (!optionalStore.isPresent()) {
+        if (optionalStore.isEmpty()) {
             return null;
         }
         Store store = optionalStore.get();
         return store.getStoreName();
+    }
+
+    @Override
+    public List<Long> getMyStoreIds(String userId) {
+
+        List<Long> storeIds = new ArrayList<>();
+
+        Optional<List<Store>> optionalStores = storeRepository.findByUserId(userId);
+        for (Store x : optionalStores.get()) {
+            storeIds.add(x.getId());
+        }
+
+        return storeIds;
     }
 }

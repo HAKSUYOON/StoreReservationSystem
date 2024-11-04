@@ -55,6 +55,7 @@
                     <th>승인여부</th>
                     <th>사용여부</th>
                     <th>비고</th>
+                    <th>리뷰 작성하기</th>
                 </tr>
             </thead>
             <tbody>
@@ -80,9 +81,20 @@
                             <div th:case="true"></div>
                         </div>
                     </td>
+                    <td>
+                        <div th:if="${x.usingYn eq true}">
+                            <form name="reviewForm" method="get" action="/review/register">
+                                <input type="hidden" name="storeId" th:value="${x.storeId}">
+                                <input type="hidden" name="storeName" th:value="${x.storeName}">
+                                <input type="hidden" name="reservationDt" th:value="${x.reservationDt}">
+                                <button type="submit">리뷰 작성하기</button>
+                            </form>
+                        </div>
+                        <div th:if="${x.usingYn eq false}"></div>
+                    </td>
                 </tr>
                 <tr th:if="${#lists.size(list) < 1}">
-                    <td colspan="6">
+                    <td colspan="8">
                         <p class="nothing">예약한 내용이 없습니다.</p>
                     </td>
                 </tr>
