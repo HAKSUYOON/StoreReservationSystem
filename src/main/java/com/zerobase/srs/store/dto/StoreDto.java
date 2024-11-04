@@ -27,6 +27,8 @@ public class StoreDto {
 
     String userId;
 
+    long score;
+
     long totalCount;
     long seq;
 
@@ -40,6 +42,7 @@ public class StoreDto {
                                     .addressDetail(store.getAddressDetail())
                                     .storeDetail(store.getStoreDetail())
                                     .userId(store.getUserId())
+                                    .score(store.getScore())
                                     .build();
 
         return storeDto;

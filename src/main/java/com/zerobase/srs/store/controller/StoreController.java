@@ -20,6 +20,9 @@ public class StoreController extends BaseController {
     private final StoreService storeService;
     private final MemberService memberService;
 
+    /**
+     * 회원 가게 목록
+     */
     @GetMapping("/store/list")
     public String store(Model model, StoreParam parameter) {
 
@@ -41,6 +44,9 @@ public class StoreController extends BaseController {
         return "store/list";
     }
 
+    /**
+     * 회원 가게 상세페이지
+     */
     @GetMapping("/store/{id}")
     public String detail(Model model, StoreParam parameter) {
 

@@ -86,10 +86,11 @@ public class StoreServiceImpl implements StoreService {
         List<Long> storeIds = new ArrayList<>();
 
         Optional<List<Store>> optionalStores = storeRepository.findByUserId(userId);
-        for (Store x : optionalStores.get()) {
-            storeIds.add(x.getId());
+        if (optionalStores.isPresent()) {
+            for (Store x : optionalStores.get()) {
+                storeIds.add(x.getId());
+            }
         }
-
         return storeIds;
     }
 }

@@ -37,4 +37,10 @@ public interface ReviewService {
      * 리뷰 수정
      */
     boolean update(ReviewInput parameter);
+
+    /**
+     * 별점 업데이트
+     */
+    void calculateScoreAvg(ReviewInput parameter);
+    void calculateScoreAvg(ReviewParam parameter);
 }

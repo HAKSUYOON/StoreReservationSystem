@@ -22,6 +22,9 @@ public class PartnerReservationController {
     private final ReservationService reservationService;
     private final StoreService storeService;
 
+    /**
+     * 파트너 예약목록 (본인 가게 예약만 표시)
+     */
     @GetMapping("/partner/store/reservation/list")
     public String partnerReservation(Model model, ReservationParam parameter, Principal principal) {
 
@@ -36,6 +39,9 @@ public class PartnerReservationController {
         return "partner/reservation/list";
     }
 
+    /**
+     * 파트너 예약 승인 POST
+     */
     @PostMapping("/partner/store/reservation/approve")
     public String setApproveY(Model model, HttpServletRequest request, ReservationInput parameter) {
 
@@ -45,6 +51,9 @@ public class PartnerReservationController {
         return "redirect:/partner/store/reservation/list";
     }
 
+    /**
+     * 파트너 예약 취소 POST
+     */
     @PostMapping("/partner/store/reservation/cancel")
     public String setApproveN(Model model, HttpServletRequest request, ReservationInput parameter) {
 

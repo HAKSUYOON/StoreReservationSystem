@@ -17,6 +17,9 @@ public class AdminReviewController {
 
     private final ReviewService reviewService;
 
+    /**
+     * 관리자 리뷰 관리 목록
+     */
     @GetMapping("/admin/review/list.do")
     public String list(Model model, ReviewParam parameter) {
 
@@ -27,6 +30,9 @@ public class AdminReviewController {
         return "admin/review/list";
     }
 
+    /**
+     * 관리자 리뷰 삭제 POST
+     */
     @PostMapping("/admin/review/delete.do")
     public String delete(ReviewParam parameter) {
 

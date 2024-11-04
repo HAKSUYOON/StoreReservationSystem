@@ -47,6 +47,15 @@
     <div class="list">
         <div>
             <p class="total-count">전체<span th:text="${totalCount}"></span>개</p>
+            <form method="get">
+                <select name="orderType">
+                    <option value="all">전체</option>
+                    <option th:selected="${#strings.equals(param.orderType, 'storeName')}" value="storeName">가나다순</option>
+                    <option th:selected="${#strings.equals(param.orderType, 'score')}" value="score">별점순</option>
+<!--                    <option th:selected="${#strings.equals(param.orderType, 'distance')}" value="distance">거리순</option>-->
+                </select>
+                <button type="submit">정렬하기</button>
+            </form>
         </div>
     <table class="table">
         <thead>
@@ -54,8 +63,7 @@
                 <th>NO</th>
                 <th>상점명</th>
                 <th>상점위치</th>
-<!--                <th>나와의 거리</th>-->
-<!--                <th>별점</th>-->
+                <th>별점</th>
             </tr>
         </thead>
         <tbody>
@@ -67,6 +75,7 @@
                     </p>
                 </td>
                 <td th:text="${x.storeAddress} + ' '+ ${x.addressDetail}">상점위치</td>
+                <td th:text="${x.score}">별점</td>
             </tr>
             <tr th:if="${#lists.size(list) < 1}">
                 <td colspan="3">

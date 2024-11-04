@@ -19,6 +19,9 @@ public class PartnerReviewController {
     private final ReviewService reviewService;
     private final StoreService storeService;
 
+    /**
+     * 파트너 리뷰 확인 목록 (본인 가게만 표시)
+     */
     @GetMapping("/partner/review/list")
     public String list(Model model, ReviewParam parameter, Principal principal) {
 

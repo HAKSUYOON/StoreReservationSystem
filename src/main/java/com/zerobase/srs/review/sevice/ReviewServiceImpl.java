@@ -5,11 +5,14 @@ import com.zerobase.srs.review.entity.Review;
 import com.zerobase.srs.review.model.ReviewInput;
 import com.zerobase.srs.review.model.ReviewParam;
 import com.zerobase.srs.review.repository.ReviewRepository;
+import com.zerobase.srs.store.entity.Store;
+import com.zerobase.srs.store.repository.StoreRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -18,6 +21,7 @@ import java.util.Optional;
 public class ReviewServiceImpl implements ReviewService {
 
     private final ReviewRepository reviewRepository;
+    private final StoreRepository storeRepository;
 
     public LocalDateTime getLocalDateTime(String value) {
         DateTimeFormatter formatter = DateTimeFormatter.ISO_LOCAL_DATE_TIME;
@@ -82,13 +86,16 @@ public class ReviewServiceImpl implements ReviewService {
 
     @Override
     public List<ReviewDto> partnerList(List<Long> storeIds) {
-
-        for (Long storeId : storeIds) {
-            Optional<List<Review>> optionalReview = reviewRepository.findByStoreId(storeId);
-            return ReviewDto.of(optionalReview.get());
+        if (!storeIds.isEmpty()) {
+            for (Long storeId : storeIds) {
+                Optional<List<Review>> optionalReview = reviewRepository.findByStoreId(storeId);
+                if (optionalReview.isPresent()) {
+                    return ReviewDto.of(optionalReview.get());
+                }
+            }
         }
 
-        return null;
+        return new ArrayList<>();
     }
 
     @Override
@@ -107,5 +114,58 @@ public class ReviewServiceImpl implements ReviewService {
 
         reviewRepository.save(review);
         return true;
+    }
+
+    @Override
+    public void calculateScoreAvg(ReviewInput parameter) {
+        long storeId = parameter.getStoreId();
+
+        Optional<List<Review>> optionalReviews = reviewRepository.findByStoreId(storeId);
+
+        long totalScore = 0;
+        long avgScore = 0;
+
+        for (Review review : optionalReviews.get()) {
+            totalScore += review.getScore();
+        }
+
+        if (optionalReviews.get().size() == 0) {
+            avgScore = 0;
+        } else {
+            avgScore = totalScore / optionalReviews.get().size();
+        }
+
+        Optional<Store> optionalStore = storeRepository.findById(storeId);
+
+        Store store = optionalStore.get();
+
+        store.setScore(avgScore);
+        storeRepository.save(store);
+    }
+
+    @Override
+    public void calculateScoreAvg(ReviewParam parameter) {
+        long storeId = parameter.getStoreId();
+
+        Optional<List<Review>> optionalReviews = reviewRepository.findByStoreId(storeId);
+
+        long totalScore = 0;
+        long avgScore = 0;
+
+        for (Review review : optionalReviews.get()) {
+            totalScore += review.getScore();
+        }
+
+        if (optionalReviews.get().size() == 0) {
+            avgScore = 0;
+        } else {
+            avgScore = totalScore / optionalReviews.get().size();
+        }
+        Optional<Store> optionalStore = storeRepository.findById(storeId);
+
+        Store store = optionalStore.get();
+
+        store.setScore(avgScore);
+        storeRepository.save(store);
     }
 }

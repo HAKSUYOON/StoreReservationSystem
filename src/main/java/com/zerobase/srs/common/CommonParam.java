@@ -8,8 +8,7 @@ public class CommonParam {
     long pageIndex;
     long pageSize;
 
-    String searchType;
-    String searchValue;
+    String orderType;
 
     public long getPageStart() {
         init();
@@ -36,15 +35,8 @@ public class CommonParam {
 
         StringBuilder sb = new StringBuilder();
 
-        if (searchType != null && searchType.length() > 0) {
-            sb.append(String.format("searchType=%s", searchType));
-        }
-
-        if (searchValue != null && searchValue.length() > 0) {
-            if (sb.length() > 0) {
-                sb.append("&");
-            }
-            sb.append(String.format("searchValue=%s", searchValue));
+        if (orderType != null && orderType.length() > 0) {
+            sb.append(String.format("orderType=%s", orderType));
         }
 
         return sb.toString();

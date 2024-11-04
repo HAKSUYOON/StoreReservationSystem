@@ -40,6 +40,7 @@ public class ReservationServiceImpl implements ReservationService {
         if (optionalReservations.isEmpty()) {
             return null;
         }
+
         return ReservationDto.of(optionalReservations.get());
     }
 

@@ -29,4 +29,7 @@ public class Store {
 
     // 등록자 id
     String userId;
+
+    // 별점
+    long score;
 }

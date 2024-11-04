@@ -22,6 +22,9 @@ public class ReservationController {
     private final ReservationService reservationService;
     private final StoreService storeService;
 
+    /**
+     * 회원 예약 목록 (kiosk) (본인 예약만 표시)
+     */
     @GetMapping("/kiosk")
     public String reservation(Model model, ReservationParam parameter, Principal principal) {
 
@@ -32,11 +35,15 @@ public class ReservationController {
         for (ReservationDto x : reservationList) {
             x.setStoreName(storeService.getStoreName(x.getStoreId()));
         }
+
         model.addAttribute("list", reservationList);
 
         return "kiosk/list";
     }
 
+    /**
+     * 회원 예약 추가 POST
+     */
     @PostMapping("/reservation/add")
     public String reservationSubmit(Model model, HttpServletRequest request, ReservationInput parameter, Principal principal) {
 
@@ -49,6 +56,9 @@ public class ReservationController {
 
     }
 
+    /**
+     * 회원 상점이용내역 POST
+     */
     @PostMapping("/kiosk/use")
     public String setUsingY(Model model, HttpServletRequest request, ReservationInput parameter) {
 

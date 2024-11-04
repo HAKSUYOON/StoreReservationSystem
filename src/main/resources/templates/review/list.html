@@ -56,6 +56,7 @@
                         <div>
                             <form name="getForm" method="get">
                                 <input type="hidden" name="id" th:value="${x.id}">
+                                <input type="hidden" name="storeId" th:value="${x.storeId}">
                                 <input type="hidden" name="storeName" th:value="${x.storeName}">
                                 <input type="hidden" name="reservationDt" th:value="${x.reservationDt}">
                                 <button type="submit" th:formaction="@{/review/edit}">수정하기</button>
@@ -64,6 +65,7 @@
                         <div>
                             <form name="submitForm" method="post">
                                 <input type="hidden" name="id" th:value="${x.id}">
+                                <input type="hidden" name="storeId" th:value="${x.storeId}">
                                 <button type="submit" th:formaction="@{/review/delete}">삭제하기</button>
                             </form>
                         </div>

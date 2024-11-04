@@ -17,6 +17,9 @@ public class PartnerStoreController {
 
     private final StoreService storeService;
 
+    /**
+     * 파트너 가게 등록 GET
+     */
     @GetMapping("/partner/store/register")
     public String storeRegister(Model model, Principal principal) {
 
@@ -26,6 +29,9 @@ public class PartnerStoreController {
         return "partner/store/register";
     }
 
+    /**
+     * 파트너 가게 등록 POST
+     */
     @PostMapping("/partner/store/register")
     public String storeRegisterSubmit(Model model, HttpServletRequest request, StoreInput parameter, Principal principal) {
 
